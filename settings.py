@@ -21,3 +21,14 @@ startBoard =[[0,0,0,2,6,0,7,0,1],
              [0,0,9,3,0,0,0,7,4],
              [0,4,0,0,5,0,0,3,6],
              [7,0,3,0,1,8,0,0,0],]
+
+board = startBoard.copy()
+
+highLightLeft = pygame.surface.Surface((TILESIZE,TILESIZE))
+highLightLeft.fill("#2d3436")
+highLightLeft.set_alpha(100)
+
+highLightRight = pygame.surface.Surface((TILESIZE,TILESIZE))
+highLightRight.fill("#d63031")
+highLightRight.set_alpha(100)
+
