@@ -3,7 +3,7 @@ import pygame
 from board import Board
 board = Board()
 def display():
-    screen.fill("#7f8c8d")
+    screen.fill("#d2b48c")
     board.update()
     pygame.display.update()
     clock.tick(FPS)

@@ -16,6 +16,11 @@ class Board():
                          [0,0,0,0,0,0,0,0,0],
                          [0,0,0,0,0,0,0,0,0],]
         self.lastTurn = ""
+        self.pressed = False
+
+        self.correctRows = 0
+        self.correctCol = 0
+        self.solved = False
 
     def makeBoard(self):
         for r in range(len(startBoard)):
@@ -98,7 +103,16 @@ class Board():
                 self.changeNumber(8)
             elif key[pygame.K_9]:
                 self.changeNumber(9)
-        # if key[pygame.K_SPACE]:
+        elif key[pygame.K_p] and self.pressed == False:
+            self.win()
+            self.pressed = True
+        elif key[pygame.K_o] and self.pressed == False:
+            self.board = solvedBoard
+            self.pressed = True
+
+        if key[pygame.K_p] == False and key[pygame.K_o] == False:
+            self.pressed = False
+
 
     def changeNumber(self,number):
         if self.leftRight == "Right":
@@ -109,10 +123,45 @@ class Board():
             self.rightBoard[self.highLight[0]][self.highLight[1]] = 0
         self.highLight = ()
 
+    def win(self):
+        for r in range(len(self.board)):
+            correctNumbers = 0
+            if self.board[r].count(0) == 0:
+                for c in range(len(self.board[r])):
+                    if self.board[r].count(self.board[r][c]) == 1:
+                        correctNumbers += 1
+            if correctNumbers == 9:
+                self.correctRows += 1
+
+        for c in range(9):
+            tempList = []
+            correctNumber = 0
+            for r in range(9):
+                tempList.append(self.board[r][c])
+            for n in range(1,10):
+                if tempList[n - 1] != 0:
+                    if tempList.count(n) == 1:
+                        correctNumber += 1
+            if correctNumber == 9:
+                self.correctCol += 1
+
+        if self.correctCol == 9 and self.correctRows == 9:
+            self.solved = True
+        else:
+            self.correctCol = 0
+            self.correctRows = 0
+
+    def displayWin(self):
+        if self.solved:
+            screen.blit(winText, winTextRect)
 
     def update(self):
         self.typeNumber()
         self.drawBoard()
         self.highlightTile()
         self.drawNumbers()
+        self.displayWin()
         self.drawLines()
+
+
+
