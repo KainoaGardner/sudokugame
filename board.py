@@ -24,6 +24,7 @@ class Board():
         self.solved = False
 
     def makeBoard(self):
+        self.board.clear()
         for r in range(len(startBoard)):
             row = []
             for c in range(len(startBoard[r])):
@@ -108,12 +109,14 @@ class Board():
             self.win()
             self.pressed = True
         elif key[pygame.K_o] and self.pressed == False:
-            # self.board = solvedBoard
             solve(self.board)
             self.win()
             self.pressed = True
+        elif key[pygame.K_i] and self.pressed == False:
+            self.makeBoard()
+            self.pressed = True
 
-        if key[pygame.K_p] == False and key[pygame.K_o] == False:
+        if key[pygame.K_p] == False and key[pygame.K_o] == False and key[pygame.K_i]:
             self.pressed = False
 
     def changeNumber(self,number):
@@ -124,6 +127,7 @@ class Board():
             self.board[self.highLight[0]][self.highLight[1]] = number
             self.rightBoard[self.highLight[0]][self.highLight[1]] = 0
         self.highLight = ()
+        self.win()
 
     def win(self):
         for r in range(len(self.board)):
