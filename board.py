@@ -1,5 +1,6 @@
 import pygame
 from settings import *
+from boardSolver import *
 
 class Board():
     def __init__(self):
@@ -107,12 +108,13 @@ class Board():
             self.win()
             self.pressed = True
         elif key[pygame.K_o] and self.pressed == False:
-            self.board = solvedBoard
+            # self.board = solvedBoard
+            solve(self.board)
+            self.win()
             self.pressed = True
 
         if key[pygame.K_p] == False and key[pygame.K_o] == False:
             self.pressed = False
-
 
     def changeNumber(self,number):
         if self.leftRight == "Right":
